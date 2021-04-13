@@ -1,0 +1,33 @@
+version: '3'
+services:
+    bet-me-app:
+        container_name: bet-me-app
+        build:
+            context: betmeapp
+            dockerfile: Dockerfile
+        image: bet-me-app:latest
+        ports:
+            - 8080:8080
+        depends_on:
+            - mongo
+        environment:
+            connection : ${connection}
+            apiKey : ${apiKey}
+            realtimedelayms : ${realtimedelayms}
+        networks:
+            - bet-me-network
+    mongo:
+        container_name: mongo
+        image: mongo
+        restart: always
+        environment: 
+            MONGO_INITDB_ROOT_USERNAME: ${mongo_username}
+            MONGO_INITDB_ROOT_PASSWORD: ${mongo_password}
+            MONGO_INITDB_DATABASE: ${mongo_database}
+        ports:
+            - 27017:27017
+        networks:
+            - bet-me-network
+networks:
+    bet-me-network:
+        driver: bridge

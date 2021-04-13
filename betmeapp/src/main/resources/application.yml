@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: betmeapp
+
+server:  servlet:    context-path: /betmeapp
+    
+    
+betmeapp:
+   host:
+     url: https://api.the-odds-api.com
+   sports:
+     url: /v3/sports/?apiKey=${apiKey}
+   odds:
+     url: /v3/odds/?apiKey=${apiKey}
+   realtime:
+     delayms: ${realtimedelayms}
+     
+logging:  level:    com.bet.me: info
+    org.springframework.cache: TRACE
